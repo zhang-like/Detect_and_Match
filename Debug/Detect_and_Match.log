@@ -1,0 +1,4 @@
+﻿  demo.cpp
+d:\a学习使我快乐\vs2015\test\detect_and_match\detect_and_match\demo.cpp(112): warning C4018: “<”: 有符号/无符号不匹配
+d:\a学习使我快乐\vs2015\test\detect_and_match\detect_and_match\demo.cpp(117): warning C4018: “<”: 有符号/无符号不匹配
+opencv_highgui340d.lib(opencv_highgui340d.dll) : fatal error LNK1112: 模块计算机类型“x64”与目标计算机类型“X86”冲突
