@@ -13,7 +13,7 @@ Mat Left_Corner_srcImage, Left_Corner_graysrcImage;
 Mat Right_Corner_srcImage, Right_Corner_graysrcImage;
 int g_maxCornerNumber = 300;
 int g_maxTrackbar_CornerNumber = 500;
-int minDistance = 10;
+int minDistance = 5;
 int maxTrackbar_minDistance = 20;
 //-----------------------------------【全局函数声明部分】--------------------------------------
 //		描述：全局函数声明
@@ -30,8 +30,8 @@ int main()
 	//显示欢迎语
 	ShowHelpText();
 	//读入图片
-	Mat Left_Img = imread("jihetijubu.jpg");
-	Mat Right_Img = imread("jiheti.jpg");
+	Mat Left_Img = imread("luomujubu.jpg");
+	Mat Right_Img = imread("luomu.jpg");
 	if (Left_Img.cols> 720|| Left_Img.rows>720)
 	{
 		int width, height;
@@ -75,8 +75,6 @@ int main()
 static void ShowHelpText()
 {
 	//输出欢迎信息和OpenCV版本
-	printf("\n\n\t\t\t非常感谢购买《OpenCV3编程入门》一书！\n");
-	printf("\n\n\t\t\t此为本书OpenCV3版的第87个配套示例程序\n");
 	printf("\n\n\t\t\t   当前使用的OpenCV版本为：" CV_VERSION);
 	printf("\n\n  ----------------------------------------------------------------------------\n");
 	//输出一些帮助信息
@@ -145,11 +143,15 @@ void on_FeatureDetector(int, void*)
 	//将Point2f转化为KeyPoint类型
 	KeyPoint::convert(Left_Corners, Left_Keypoints, 1, 1, 0, -1);
 	KeyPoint::convert(Right_Corners, Right_Keypoints, 1, 1, 0, -1);
-	//生产特征向量描述子
-	Ptr<cv::xfeatures2d::SurfDescriptorExtractor> extractor = cv::xfeatures2d::SurfDescriptorExtractor::create();
+	Ptr<cv::xfeatures2d::SiftFeatureDetector> detector = cv::xfeatures2d::SiftFeatureDetector::create();
 	Mat Left_Descriptors, Right_Descriptors;
-	extractor->compute(Left_Corner_srcImage, Left_Keypoints, Left_Descriptors);
-	extractor->compute(Right_Corner_srcImage, Right_Keypoints, Right_Descriptors);
+	detector->detectAndCompute(Left_Corner_srcImage, Mat(), Left_Keypoints, Left_Descriptors, 1);
+	detector->detectAndCompute(Right_Corner_srcImage, Mat(), Right_Keypoints, Right_Descriptors, 1);
+	////生产特征向量描述子
+	//Ptr<cv::xfeatures2d::SurfDescriptorExtractor> extractor = cv::xfeatures2d::SurfDescriptorExtractor::create();
+	//Mat Left_Descriptors, Right_Descriptors;
+	//extractor->compute(Left_Corner_srcImage, Left_Keypoints, Left_Descriptors);
+	//extractor->compute(Right_Corner_srcImage, Right_Keypoints, Right_Descriptors);
 	//用FLANN匹配器匹配描述向量
 	FlannBasedMatcher matcher;
 	vector<DMatch> matches;
@@ -168,7 +170,7 @@ void on_FeatureDetector(int, void*)
 	//仅绘制好的匹配
 	for (int i = 0; i < Left_Descriptors.rows; i++)
 	{
-			if (matches[i].distance < 2.5* min_dist)
+			if (matches[i].distance < 5* min_dist)
 			{
 				good_matches.push_back(matches[i]);
 			}
