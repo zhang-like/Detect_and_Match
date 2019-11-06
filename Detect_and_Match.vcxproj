@@ -148,6 +148,9 @@
   <ItemGroup>
     <ClCompile Include="demo.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="detect_and_match.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
