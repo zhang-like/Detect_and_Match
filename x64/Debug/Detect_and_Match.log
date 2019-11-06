@@ -1,3 +1,4 @@
 ﻿  demo.cpp
+d:\vs2015\test\detect_and_match\detect_and_match\detect_and_match.h(140): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
   Detect_and_Match.vcxproj -> D:\VS2015\Test\Detect_and_Match\x64\Debug\Detect_and_Match.exe
   Detect_and_Match.vcxproj -> D:\VS2015\Test\Detect_and_Match\x64\Debug\Detect_and_Match.pdb (Full PDB)

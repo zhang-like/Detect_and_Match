@@ -17,8 +17,8 @@ int main()
 	//显示欢迎语
 	ShowHelpText();
 	//读入图片
-	Mat Left_Img = imread("left.jpg");
-	Mat Right_Img = imread("right.jpg");
+	Mat Left_Img = imread("jihetijubu.jpg");
+	Mat Right_Img = imread("jiheti.jpg");
 	if (!Left_Img.data) { printf("Oh，no，读取左图像错误~！ \n"); waitKey(0); return false; }
 	if (!Right_Img.data) { printf("Oh，no，读取右图像错误~！ \n"); waitKey(0); return false; }
 	//将图像等比例缩小到最长边小于720
