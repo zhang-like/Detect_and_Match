@@ -18,9 +18,15 @@
     <ClCompile Include="demo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="demo_oop.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="detect_and_match.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="oop.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -147,9 +147,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="demo.cpp" />
+    <ClCompile Include="demo_oop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="detect_and_match.h" />
+    <ClInclude Include="oop.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

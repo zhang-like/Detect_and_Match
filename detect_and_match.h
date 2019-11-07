@@ -5,6 +5,7 @@
 #include<iostream>
 using namespace std;
 using namespace cv;
+
 //-----------------------------------【全局变量声明部分】--------------------------------------
 //		描述：全局变量声明
 //-----------------------------------------------------------------------------------------------
@@ -111,34 +112,10 @@ void on_FeatureDetector(int, void*)
 	vector<DMatch> matches;
 	matcher.match(Left_Descriptors, Right_Descriptors, matches);
 
-	////计算最大和最小匹配误差，并筛选出好的匹配结果
-	//double max_dist = 0; double min_dist = 100;
-	//double avgerr = 0;
-	//for (int i = 0; i < Left_Descriptors.rows; i++)
-	//{
-	//	avgerr += matches[i].distance;
-	//	double dist = matches[i].distance;
-	//	if (dist < min_dist) min_dist = dist;
-	//	if (dist > max_dist) max_dist = dist;
-
-	//}
-	//avgerr = avgerr / Left_Descriptors.rows;
-	//cout << "Max distance:" << max_dist << endl;
-	//cout << "Min distance:" << min_dist << endl;
-	//cout << "Avg distance:" << avgerr << endl;
-	//vector<DMatch> good_matches;
-
-	//for (int i = 0; i < Left_Descriptors.rows; i++)
-	//{
-	//	if (matches[i].distance < 0.8*avgerr)
-	//	{
-	//		good_matches.push_back(matches[i]);
-	//	}
-
-	//}
+	//【10】计算单应性矩阵H，用RANSCA剔除误匹配点
 	vector<Point2f> Left_Matches, Right_Matches;
-	int good_points_num = matches.size();
-	for (int i = 0; i < good_points_num; i++)
+	int Match_Points_Num = matches.size();
+	for (int i = 0; i < Match_Points_Num; i++)//将得到的左右匹配结果点分别存入动态数组
 	{
 		Left_Matches.push_back(Left_Keypoints[matches[i].queryIdx].pt);
 		Right_Matches.push_back(Right_Keypoints[matches[i].trainIdx].pt);
@@ -148,7 +125,7 @@ void on_FeatureDetector(int, void*)
 	vector<Point2f> Left_Matches_Aftertrans;
 	perspectiveTransform(Left_Matches, Left_Matches_Aftertrans, H);
 	
-	for (int i = 0; i < Right_Matches.size(); i++)
+	for (int i = 0; i < Right_Matches.size(); i++)//剔除误差范数大于5的点
 	{
 		if (norm(Right_Matches[i] - Left_Matches_Aftertrans[i]) <= 5)
 		{
